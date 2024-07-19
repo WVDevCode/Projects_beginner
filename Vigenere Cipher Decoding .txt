@@ -1,0 +1,70 @@
+message3 = "txm srom vkda gl lzlgzr qpdb? fepb ejac! ubr imn tapludwy mhfbz cza ruxzal wg zztcgcexxch!"
+keyword = "friends"
+alphabet1 = "abcdefghijklmnopqrstuvwxyz"
+def vig_cipher_decoding(message, keyword):
+    index = 0
+    msg_and_key = []
+    for letter in range(len(message)):
+        if message[letter] == " ":
+            msg_and_key.append(" ")
+        elif message[letter] not in alphabet1:
+            msg_and_key.append(message[letter])
+        elif message[letter] in alphabet1:
+            if letter == 0:
+                msg_and_key.append(keyword[letter])
+                index += 1
+            elif 0 < index < len(keyword):
+                msg_and_key.append(keyword[index])
+                index += 1
+            elif index == len(keyword):
+                index = 0
+                msg_and_key.append(keyword[index])
+                index += 1
+    #print(msg_and_key)
+
+    dec_crypted_message_alpha_index = []
+    for char in range(len(message)):
+        if message[char] == " ":
+            dec_crypted_message_alpha_index.append(" ")
+        elif message[char] not in alphabet1:
+            dec_crypted_message_alpha_index.append(message[char])
+        elif message[char] in alphabet1:
+            dec_crypted_message_alpha_index.append(alphabet1.find(message[char]))
+    #print(dec_crypted_message_alpha_index)
+    
+    
+    keyword_phrase_alpha_index = []    
+    for char in range(len(msg_and_key)):
+        if msg_and_key[char] == " ":
+            keyword_phrase_alpha_index.append(" ")
+        elif msg_and_key[char] not in alphabet1:
+            keyword_phrase_alpha_index.append(msg_and_key[char])
+        elif msg_and_key[char] in alphabet1:
+            keyword_phrase_alpha_index.append(alphabet1.find(msg_and_key[char]))
+    #print(keyword_phrase_alpha_index)   
+    
+    
+    new_alpha_index = []
+    for index in range(len(message)):
+        if message[index] == " ":
+            new_alpha_index.append(" ")
+        elif message[index] not in alphabet1:
+            new_alpha_index.append(message[index])
+        elif message[index] in alphabet1:
+            new_alpha_index.append(-26 + dec_crypted_message_alpha_index[index] + keyword_phrase_alpha_index[index])     
+    #print(new_alpha_index)
+    
+    
+    decoded_msg = []                
+    for letter in range(len(message)):
+        if message[letter] == " ":
+            decoded_msg.append(" ")
+        elif message[letter] not in alphabet1:
+            decoded_msg.append(message[letter])
+        elif message[letter] in alphabet1:
+            decoded_msg.append(alphabet1[new_alpha_index[letter]])
+    #print(decoded_msg)        
+    print("".join(decoded_msg))
+                
+
+vig_cipher_decoding(message3, keyword)   
